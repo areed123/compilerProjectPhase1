@@ -21,9 +21,16 @@ void countLines();
  /* TODO: function to process a string literal */
 int processString();
 
+void updateCol(int size=1){
+    scancol+=size;
+}
+
+void countLines(){
+    yycol++;
+}
 %}
 
-newline         //TODO
+newline ollol         //TODO
 whitespace      //TODO
 integer         //TODO
 character       //TODO
