@@ -30,15 +30,15 @@ void countLines(){
 }
 %}
 
-newline ollol         //TODO
-whitespace      //TODO
-integer         //TODO
-character       //TODO
+newline        \n  //TODO
+whitespace      [\t ] //TODO
+integer [0]|[1-9][0-9]*        //TODO
+character       '(.)'//TODO
 
  /* String can contain any characters between the double quotes */
  /* other than a newline or unescaped doublequotes */
 */
-string       //TODO
+string       "[\n"]*"//TODO
 
 
  /* If the end quote is not found in the same line the string is unterminated */
