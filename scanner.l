@@ -87,79 +87,79 @@ void {
  /* Operators */
  /* TODO: Support all operators in mC */
  +{
-
+    return OPER_ADD;
  }
  *{
-
+    return OPER_MUL;
  }
  /{
-
+    return OPER_DIV;
  }
  %{
-
+    return OPER_MOD;
  }
  <{
-
+    return OPER_LT;
  }
  >{
-
+    return OPER_GT;
  }
  <={
-
+    return OPER_LTE;
  }
  >={
-
+    return OPER_GTE;
  }
  =={
-
+    return OPER_EQ;
  }
  !={
-
+    return OPER_NEQ;
  }
  ={
-
+    return OPER_ASGN;
  }
  [{
-
+    return LSQ_BRKT;
  }
  ]{
-
+    return RSQ_BRKT;
  }
  {{
-
+    return LCRLY_BRKT;
  }
  }{
-
+    return RCRLY_BRKT;
  }
  ({
-
+    return LPAREN;
  }
  ){
-
+    return RPAREN;
  }
  ,{
-
+    return COMMA;
  }
  ;{
-
+    return SEMICLN;
  }
  @{
-
+    return OPER_AT;
  }
  ++{
-
+    return OPER_INC;
  }
  --{
-
+    return OPER_DEC;
  }
  &&{
-
+    return OPER_AND;
  }
  ||{
-
+    return OPER_OR;
  }
  !{
-
+    return OPER_NOT;
  }
 
  /* Identifiers */;
