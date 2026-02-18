@@ -33,23 +33,23 @@ void countLines(){
 newline        \n  //TODO
 whitespace      [\t ] //TODO
 integer [0]|[1-9][0-9]*        //TODO
-character       '(.)'//TODO
+character       '[.\n]' //TODO
 
  /* String can contain any characters between the double quotes */
  /* other than a newline or unescaped doublequotes */
 */
-string       "[\n"]*"//TODO
+string       "[^\n"]*" //TODO
 
 
  /* If the end quote is not found in the same line the string is unterminated */
-untermstring //TODO
+untermstring "[^"]\n //TODO
 
-comment         //TODO
-multlncomment   //TODO
-untermcomment   //TODO
+comment \/\*.*\*\/         //TODO
+multlncomment \/\*(.|\n)*(\n)\*\/   //TODO
+untermcomment  \/\*(.|\n)*<<EOF>> //TODO
 
-identifier      //TODO
-illidentifier   //TODO: regular expression for an illegal identifier
+identifier [a-zA-Z][a-zA-Z0-9]*      //TODO
+illidentifier   [a-zA-Z][^a-zA-Z0-9]|[^a-zA-Z].*//TODO: regular expression for an illegal identifier
 
 yylineno = 1;
 
@@ -59,9 +59,107 @@ yylineno = 1;
 
  /* Keywords */
  /* TODO: Support all keywords in mC */
+if {
 
+ }
+else {
+
+ }
+while {
+
+}
+int {
+
+}
+string {
+
+}
+char {
+
+}
+return {
+
+}
+void {
+
+}
  /* Operators */
  /* TODO: Support all operators in mC */
+ +{
+
+ }
+ *{
+
+ }
+ /{
+
+ }
+ %{
+
+ }
+ <{
+
+ }
+ >{
+
+ }
+ <={
+
+ }
+ >={
+
+ }
+ =={
+
+ }
+ !={
+
+ }
+ ={
+
+ }
+ [{
+
+ }
+ ]{
+
+ }
+ {{
+
+ }
+ }{
+
+ }
+ ({
+
+ }
+ ){
+
+ }
+ ,{
+
+ }
+ ;{
+
+ }
+ @{
+
+ }
+ ++{
+
+ }
+ --{
+
+ }
+ &&{
+
+ }
+ ||{
+
+ }
+ !{
+
+ }
 
  /* Identifiers */;
 {identifier}    //TODO
