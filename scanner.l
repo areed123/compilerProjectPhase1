@@ -60,28 +60,29 @@ yylineno = 1;
  /* Keywords */
  /* TODO: Support all keywords in mC */
 if {
-
+    return KWD_IF;
  }
 else {
-
+    return KWD_ELSE;
  }
 while {
+    return KWD_WHILE;
 
 }
 int {
-
+    return KWD_INT;
 }
 string {
-
+    return KWD_STRING;
 }
 char {
-
+    return KWD_CHAR;
 }
 return {
-
+    return KWD_RETURN;
 }
 void {
-
+    return KWD_VOID;
 }
  /* Operators */
  /* TODO: Support all operators in mC */
