@@ -27,6 +27,7 @@ int processString();
 newline        \n  //TODO
 whitespace      [\t ] //TODO
 integer [0]|[1-9][0-9]*        //TODO
+integerlead0 [0]+[0-9]*
 character       '[.\n]' //TODO
 
  /* String can contain any characters between the double quotes */
@@ -190,23 +191,23 @@ void {
  }
 
  /* Identifiers */;
-{identifier}    //TODO
-{illidentifier} //TODO
+{identifier}    {updateCol(); return ID;} //TODO
+{illidentifier} {return ILLEGAL_TOK;}//TODO
 
  /* Constants */;
-{integer}       //TODO
-{integerlead0}  //TODO: "Integers may not have leading zeros"
-{character}     //TODO
+{integer}       {updateCol(); return INTCONST;}//TODO
+{integerlead0}  {return ILLEGAL_TOK;}//TODO: "Integers may not have leading zeros"
+{character}     {updateCol(); return CHARCONST;}//TODO
 {string}        {updateCol(); return processString();}
 {untermstring}  {updateCol(); yyerror = "Unterminated string"; return ERROR;}
 
  /* Comments */
 {comment}       //TODO
-{untermcomment} //TODO
+{untermcomment} {return ERROR;} //TODO
 {multlncomment} //TODO
 
  /* Other */
-{newline}       //TODO
+{newline}       {countLines();}//TODO
 {whitespace}    //TODO
 .               {return ILLEGAL_TOK;}
 
@@ -218,12 +219,16 @@ void {
 Implement this function to keep track of column numbers
 */
 void updateCol(){
+    scancol+=yyleng;
+    yycol=scancol;
 }
 
 /* TODO:
 Implement this function to keep track of line numbers
 */
 void countLines(){
+    scanlineno++;
+    yylineno=scanlineno;
 }
 
 
@@ -235,4 +240,11 @@ convert valid escape sequences into escaped characters
 (string[0] == '\\' and string[1] == 'n', then string[0] should be '\n')
 */
 int processString(){
+    for(int i=0; i<yyleng; i++){
+        //TODO: Identify valid escape sequences and return ERROR or ILLEGAL if invalid escape sequences exist in the string
+        //Valid escape sequences \\, \n, \t, \"   ALL OTHERS ARE ILLEGAL
+    }
+    return STRCONST;
+
+    return ILLEGAL_TOK;
 }
