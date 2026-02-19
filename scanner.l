@@ -240,11 +240,38 @@ convert valid escape sequences into escaped characters
 (string[0] == '\\' and string[1] == 'n', then string[0] should be '\n')
 */
 int processString(){
-    for(int i=0; i<yyleng; i++){
+    int i = 0;
+    int j = 0;
+    char q = yytext[0];
+    while (q != '\0'){
         //TODO: Identify valid escape sequences and return ERROR or ILLEGAL if invalid escape sequences exist in the string
-        //Valid escape sequences \\, \n, \t, \"   ALL OTHERS ARE ILLEGAL
-    }
-    return STRCONST;
 
-    return ILLEGAL_TOK;
+        //Valid escape sequences \\, \n, \t, \"   ALL OTHERS ARE ILLEGAL
+        if( q == '\\'){
+            switch(yytext[++i]){
+                case '\\':
+                    yytext[j]='\\';
+                    break;
+                case 'n':
+                    yytext[j]='\n';
+                    break;
+                case 't':
+                    yytext[j]='\t';
+                    break;
+                case '\"':
+                    yytext[j]='\"';
+                    break;
+                default:
+                    yyerror="Invalid Escape Sequence";
+                    return ERROR;
+                }
+        }
+        else{
+            yytext[j]=yytext[i];
+        }
+        q=yytext[++i];
+        j++;
+    }
+    yytext[j]='\0';
+    return STRCONST;
 }
