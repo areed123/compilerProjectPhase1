@@ -192,23 +192,23 @@ void {
 
  /* Identifiers */;
 {identifier}    {updateCol(); return ID;} //TODO
-{illidentifier} {return ILLEGAL_TOK;}//TODO
+{illidentifier} {updateCol(); yyerror="Ill Identifier"; return ERROR;}
 
  /* Constants */;
-{integer}       {updateCol(); return INTCONST;}//TODO
-{integerlead0}  {return ILLEGAL_TOK;}//TODO: "Integers may not have leading zeros"
-{character}     {updateCol(); return CHARCONST;}//TODO
+{integer}       {updateCol(); return INTCONST;}
+{integerlead0}  {updateCol(); yyerror= "Integers may not have leading zeros"; return ERROR;}
+{character}     {updateCol(); return CHARCONST;}
 {string}        {updateCol(); return processString();}
 {untermstring}  {updateCol(); yyerror = "Unterminated string"; return ERROR;}
 
  /* Comments */
-{comment}       //TODO
-{untermcomment} {return ERROR;} //TODO
-{multlncomment} //TODO
+{comment}       //Shouldn't do anything
+{untermcomment} {updateCol(); yyerror="Unterminated Comment"; return ERROR;} //TODO
+{multlncomment} //Shouldn't do anything
 
  /* Other */
 {newline}       {countLines();}//TODO
-{whitespace}    //TODO
+{whitespace}    //Shouldn't do anythiing
 .               {return ILLEGAL_TOK;}
 
 %%
