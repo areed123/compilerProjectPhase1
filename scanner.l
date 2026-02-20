@@ -24,28 +24,27 @@ int processString();
 
 %}
 
-newline        \n  //TODO
-whitespace      [\t ] //TODO
-integer [0]|[1-9][0-9]*        //TODO
+newline        \n
+whitespace      [\t ]
+integer [0]|[1-9][0-9]*
 integerlead0 [0]+[0-9]*
-character       '[.\n]' //TODO
+character       '[.\n]'
 
  /* String can contain any characters between the double quotes */
  /* other than a newline or unescaped doublequotes */
-*/
-string       "[^\n"]*" //TODO
+
+string \"[^\n\"]*\"
 
 
  /* If the end quote is not found in the same line the string is unterminated */
-untermstring "[^"]\n //TODO
+untermstring "[^"]\n
 
-comment \/\*.*\*\/         //TODO
-multlncomment \/\*(.|\n)*(\n)\*\/   //TODO
-untermcomment  \/\*(.|\n)*<<EOF>> //TODO
+comment \/\*.*\*\/
+multlncomment \/\*(.|\n)*(\n)\*\/
+untermcomment  \/\*(.|\n)*[^\*][^\/] 
 
-identifier [a-zA-Z][a-zA-Z0-9]*      //TODO
-illidentifier   [a-zA-Z][^a-zA-Z0-9]|[^a-zA-Z].*//TODO: regular expression for an illegal identifier
-
+identifier [a-zA-Z][a-zA-Z0-9]*
+illidentifier   [a-zA-Z][^a-zA-Z0-9]|[^a-zA-Z].*
 yylineno = 1;
 
 %%
@@ -71,6 +70,7 @@ int {
    updateCol();
     return KWD_INT;
 }
+
 string {
    updateCol();
     return KWD_STRING;
@@ -89,110 +89,118 @@ void {
 }
  /* Operators */
  /* TODO: Support all operators in mC */
- +{
+\+ {
    updateCol();
     return OPER_ADD;
  }
- *{
+\* {
    updateCol();
     return OPER_MUL;
  }
- /{
+\/ {
    updateCol();
     return OPER_DIV;
  }
- %{
+% {
    updateCol();
     return OPER_MOD;
  }
- <{
+\< {
    updateCol();
     return OPER_LT;
  }
- >{
+> {
    updateCol();
     return OPER_GT;
  }
- <={
+\<= {
    updateCol();
     return OPER_LTE;
  }
- >={
+>= {
    updateCol();
     return OPER_GTE;
  }
- =={
+== {
    updateCol();
     return OPER_EQ;
  }
- !={
+!= {
    updateCol();
     return OPER_NEQ;
  }
- ={
+= {
    updateCol();
     return OPER_ASGN;
  }
- [{
+\[ {
    updateCol();
     return LSQ_BRKT;
  }
- ]{
+] {
    updateCol();
     return RSQ_BRKT;
  }
- {{
+{ {
    updateCol();
     return LCRLY_BRKT;
  }
- }{
+} {
    updateCol();
     return RCRLY_BRKT;
  }
- ({
+\( {
    updateCol();
     return LPAREN;
  }
- ){
+\) {
    updateCol();
     return RPAREN;
  }
- ,{
+, {
    updateCol();
     return COMMA;
  }
- ;{
+; {
    updateCol();
     return SEMICLN;
  }
- @{
+@ {
    updateCol();
     return OPER_AT;
  }
- ++{
+\+\+ {
    updateCol();
     return OPER_INC;
  }
- --{
+-- {
    updateCol();
     return OPER_DEC;
  }
- &&{
+&& {
    updateCol();
    return OPER_AND;
  }
- ||{
+\|\| {
    updateCol();
    return OPER_OR;
  }
- !{
+! {
    updateCol();
     return OPER_NOT;
  }
 
- /* Identifiers */;
-{identifier}    {updateCol(); return ID;} //TODO
-{illidentifier} {updateCol(); yyerror="Ill Identifier"; return ERROR;}
+ /* Identifiers */
+{identifier} {
+		updateCol(); 
+		return ID;
+}
+
+{illidentifier} {
+		updateCol();
+ 		yyerror="Ill Identifier";
+		return ERROR;
+}
 
  /* Constants */;
 {integer}       {updateCol(); return INTCONST;}
