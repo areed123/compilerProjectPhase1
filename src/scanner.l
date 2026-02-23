@@ -11,105 +11,93 @@ int scancol = 1;
 int yycol = 1;
 int scanlineno = 1;
 
- /* char pointer to pass error messages to driver.c */
+ 
 char *yyerror;
 
- /* TODO: functions to update line and column numbers */
 void updateCol();
 void countLines();
 
- /* TODO: function to process a string literal */
 int processString();
 
 
 %}
 
-newline        \n
-whitespace      [\t ]
+newline \n
+whitespace [\t ]+
 integer [0]|[1-9][0-9]*
 integerlead0 [0]+[0-9]*
-character       '[.\n]'
+character '[.\n]'
 
- /* String can contain any characters between the double quotes */
- /* other than a newline or unescaped doublequotes */
-
-string \"[^\n\"]*\"
+string \"[^\n"]*\"
 
 
- /* If the end quote is not found in the same line the string is unterminated */
-untermstring "[^"]\n
+untermstring \"[^"]\n
 
 comment \/\*.*\*\/
 multlncomment \/\*(.|\n)*(\n)\*\/
 untermcomment  \/\*(.|\n)*[^\*][^\/] 
 
 identifier [a-zA-Z][a-zA-Z0-9]*
-illidentifier   [a-zA-Z][^a-zA-Z0-9]|[^a-zA-Z].*
-yylineno = 1;
+illidentifier [a-zA-Z][^a-zA-Z0-9]
+
 
 %%
 
- /* rules */
-
- /* Keywords */
- /* TODO: Support all keywords in mC */
 if {
    updateCol();
-    return KWD_IF;
+   return KWD_IF;
  }
 else {
    updateCol();
-    return KWD_ELSE;
+   return KWD_ELSE;
  }
 while {
    updateCol();
-    return KWD_WHILE;
+   return KWD_WHILE;
 
 }
 int {
    updateCol();
-    return KWD_INT;
+   return KWD_INT;
 }
 
 string {
    updateCol();
-    return KWD_STRING;
+   return KWD_STRING;
 }
 char {
    updateCol();
-    return KWD_CHAR;
+   return KWD_CHAR;
 }
 return {
    updateCol();
-    return KWD_RETURN;
+   return KWD_RETURN;
 }
 void {
    updateCol();
-    return KWD_VOID;
+   return KWD_VOID;
 }
- /* Operators */
- /* TODO: Support all operators in mC */
 \+ {
    updateCol();
-    return OPER_ADD;
+   return OPER_ADD;
  }
 \* {
    updateCol();
-    return OPER_MUL;
+   return OPER_MUL;
  }
 \/ {
    updateCol();
-    return OPER_DIV;
+   return OPER_DIV;
  }
 % {
    updateCol();
-    return OPER_MOD;
+   return OPER_MOD;
  }
 \< {
    updateCol();
     return OPER_LT;
  }
-> {
+\> {
    updateCol();
     return OPER_GT;
  }
@@ -137,15 +125,15 @@ void {
    updateCol();
     return LSQ_BRKT;
  }
-] {
+\] {
    updateCol();
     return RSQ_BRKT;
  }
-{ {
+\{ {
    updateCol();
     return LCRLY_BRKT;
  }
-} {
+\} {
    updateCol();
     return RCRLY_BRKT;
  }
@@ -190,7 +178,6 @@ void {
     return OPER_NOT;
  }
 
- /* Identifiers */
 {identifier} {
 		updateCol(); 
 		return ID;
@@ -202,38 +189,55 @@ void {
 		return ERROR;
 }
 
- /* Constants */;
-{integer}       {updateCol(); return INTCONST;}
-{integerlead0}  {updateCol(); yyerror= "Integers may not have leading zeros"; return ERROR;}
-{character}     {updateCol(); return CHARCONST;}
-{string}        {updateCol(); return processString();}
-{untermstring}  {updateCol(); yyerror = "Unterminated string"; return ERROR;}
+{integer}       {
+		updateCol();
+		return INTCONST;
+}
+{integerlead0}  {
+		updateCol(); 
+		yyerror= "Integers may not have leading zeros";
+		return ERROR;
+}
+{character}     {
+		updateCol(); 
+		return CHARCONST;
+}
+{string}        {
+		updateCol(); 
+		return processString();
+}
+{untermstring}  {
+		updateCol(); 
+		yyerror = "Unterminated string"; 
+		return ERROR;
+}
 
- /* Comments */
-{comment}       //Shouldn't do anything
-{untermcomment} {updateCol(); yyerror="Unterminated Comment"; return ERROR;} //TODO
-{multlncomment} //Shouldn't do anything
+{comment}      
+{untermcomment} {
+	updateCol();
+	yyerror="Unterminated Comment";
+	return ERROR;
+}
+{multlncomment}
 
- /* Other */
-{newline}       {countLines();}//TODO
-{whitespace}    //Shouldn't do anythiing
-.               {return ILLEGAL_TOK;}
+{newline}       {
+		countLines();
+}
+{whitespace}
+.	{
+	return ILLEGAL_TOK;
+}
+
 
 %%
 
-/* user routines */
 
-/* TODO:
-Implement this function to keep track of column numbers
-*/
 void updateCol(){
     scancol+=yyleng;
     yycol=scancol;
 }
 
-/* TODO:
-Implement this function to keep track of line numbers
-*/
+
 void countLines(){
     scanlineno++;
     yylineno=scanlineno;
