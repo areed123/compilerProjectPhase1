@@ -28,7 +28,7 @@ integer [0]|[1-9][0-9]*
 integerlead0 [0]+[0-9]*
 character '[.\n]'
 
-string \"[^\n"]*\"
+string \"([^\n"]|(\"))*\"
 
 
 untermstring \"[^"]\n
@@ -223,7 +223,9 @@ void {
 {newline}       {
 		countLines();
 }
-{whitespace}
+{whitespace} {
+	updateCol();
+}
 .	{
 	return ILLEGAL_TOK;
 }
@@ -233,12 +235,13 @@ void {
 
 
 void updateCol(){
-    scancol+=yyleng;
     yycol=scancol;
+    scancol+=yyleng;
 }
 
 
 void countLines(){
+    scancol=1;
     scanlineno++;
     yylineno=scanlineno;
 }
