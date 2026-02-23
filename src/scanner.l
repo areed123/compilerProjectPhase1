@@ -149,31 +149,31 @@ void {
    updateCol();
     return COMMA;
  }
-;{
+; {
    updateCol();
     return SEMICLN;
  }
-@{
+@ {
    updateCol();
     return OPER_AT;
  }
-\+\+{
+\+\+ {
    updateCol();
     return OPER_INC;
  }
---{
+-- {
    updateCol();
     return OPER_DEC;
  }
-&&{
+&& {
    updateCol();
    return OPER_AND;
  }
-\|\|{
+\|\| {
    updateCol();
    return OPER_OR;
  }
-!{
+! {
    updateCol();
     return OPER_NOT;
  }
@@ -189,16 +189,16 @@ void {
 		return ERROR;
 }
 
-{integer}       {
+{integer} {
 		updateCol();
 		return INTCONST;
 }
-{integerlead0}  {
+{integerlead0} {
 		updateCol(); 
 		yyerror= "Integers may not have leading zeros";
 		return ERROR;
 }
-{character}     {
+{character} {
 		updateCol(); 
 		return CHARCONST;
 }
