@@ -26,7 +26,7 @@ newline \n
 whitespace [\t ]+
 integer [0]|[1-9][0-9]*
 integerlead0 [0]+[0-9]*
-character '[.\n]'
+character \'(.|\\n|\\t|\\|\")\'
 
 string \"([^\n"]|(\"))*\"
 
@@ -278,6 +278,7 @@ int processString(){
                     break;
                 default:
                     yyerror="Invalid Escape Sequence";
+		    yycol+=i;
                     return ERROR;
                 }
         }
