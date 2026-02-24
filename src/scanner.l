@@ -28,7 +28,7 @@ integer [0]|[1-9][0-9]*
 integerlead0 [0]+[0-9]*
 character \'(.|\\n|\\t|\\|\")\'
 
-string \"([^\n"]|(\"))*\"
+string \"([^"\n]|(\"))*\"
 
 
 untermstring \"[^"]\n
@@ -255,7 +255,7 @@ convert valid escape sequences into escaped characters
 (string[0] == '\\' and string[1] == 'n', then string[0] should be '\n')
 */
 int processString(){
-    int i = 0;
+    int i = 1;
     int j = 0;
     char q = yytext[0];
     while (q != '\0'){
@@ -282,12 +282,15 @@ int processString(){
                     return ERROR;
                 }
         }
+//	else if(q=='"'){
+	    
+//	}
         else{
             yytext[j]=yytext[i];
         }
         q=yytext[++i];
         j++;
     }
-    yytext[j]='\0';
+    yytext[j-1]='\0';
     return STRCONST;
 }
