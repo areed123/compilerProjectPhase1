@@ -208,7 +208,7 @@ void {
 }
 {untermstring}  {
 		updateCol(); 
-		yyerror = "Unterminated string"; 
+		yyerror = "Unterminated string constant"; 
 		return ERROR;
 }
 
@@ -227,6 +227,7 @@ void {
 	updateCol();
 }
 .	{
+   yyerror="Illegal token";
 	return ILLEGAL_TOK;
 }
 
@@ -277,7 +278,7 @@ int processString(){
                     yytext[j]='\"';
                     break;
                 default:
-                    yyerror="Invalid Escape Sequence";
+                    yyerror="Unrecognized escape character in String";
 		    yycol+=i;
                     return ERROR;
                 }
