@@ -283,9 +283,10 @@ int processString(){
                     return ERROR;
                 }
         }
-//	else if(q=='"'){
-	    
-//	}
+         else if(q=='\n'){
+            yyerror="String spans multiple lines";
+            return ERROR;
+         }
         else{
             yytext[j]=yytext[i];
         }
