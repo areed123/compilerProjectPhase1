@@ -28,7 +28,7 @@ integer [0]|[1-9][0-9]*
 integerlead0 [0]+[0-9]*
 character \'(.|\\n|\\t|\\|\")\'
 
-string \"([^"])*\"
+string \"([^"]|(\"))*\"
 
 
 untermstring \"[^"]*
