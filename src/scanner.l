@@ -34,7 +34,7 @@ untermstring \"[^"\n]*\n
 commentstart \/\*
 
 identifier [a-zA-Z][a-zA-Z0-9]*
-illidentifier [a-zA-Z][^a-zA-Z0-9]
+illidentifier [0-9]+[a-zA-Z]+[a-zA-Z0-9]*
 
 
 %%
