@@ -151,7 +151,7 @@ void {
    updateCol();
     return SEMICLN;
  }
-\@ {
+@ {
    updateCol();
     return OPER_AT;
  }
