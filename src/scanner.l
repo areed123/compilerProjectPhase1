@@ -29,7 +29,7 @@ integerlead0 [0]+[0-9]*
 character \'(.|\\n|\\t|\\|\")\'
 
 string \"([^"\n]|(\"))*\"
-untermstring \"[^"]\n
+untermstring \"[^"\n]*\n
 
 comment \/\*.*\*\/
 multlncomment \/\*(.|\n)*(\n)\*\/
