@@ -203,7 +203,7 @@ void {
 		return processString();
 }
 {untermstring}  {
-      countLines();
+      unput('\n');
 		updateCol(); 
 		yyerror = "Unterminated string constant"; 
 		return ERROR;
@@ -221,6 +221,9 @@ void {
       }
       if (c == '/' && prev == '*') {
          break;
+      }
+      if (c == '\n') {
+         countLines();
       }
       prev = c;
    }
