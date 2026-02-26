@@ -218,7 +218,7 @@ void {
          yyerror = "Unterminated comment";
          return ERROR;
       }
-      if (c == '*' && prev == '/') {
+      if (c == '/' && prev == '*') {
          break;
       }
       prev = c;
