@@ -1,4 +1,3 @@
-IllegalIdentifier*
 01
 "String with illegal escape sequence \b"
 "Unterminated string
