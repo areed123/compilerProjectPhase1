@@ -1,3 +1,0 @@
-"Acceptable \n String"
-"Unacceptable 
-String"

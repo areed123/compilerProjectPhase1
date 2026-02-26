@@ -29,7 +29,6 @@ integerlead0 [0]+[0-9]*
 character \'(.|\\n|\\t|\\|\")\'
 
 string \"([^"\n]|(\"))*\"
-multlnstring \"([^"]|(\")|(\n))*\"
 untermstring \"[^"]\n
 
 comment \/\*.*\*\/
@@ -204,11 +203,6 @@ void {
 {string}        {
 		updateCol(); 
 		return processString();
-}
-{multlnstring} {
-      updateCol(); 
-      yyerror = "String spans multiple lines";
-      return ERROR;
 }
 {untermstring}  {
 		updateCol(); 
