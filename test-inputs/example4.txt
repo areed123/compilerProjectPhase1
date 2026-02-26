@@ -1,5 +1,5 @@
 01
 "String with illegal escape sequence \b"
 "Unterminated string
-/* Unterminated comment /
 0Illegal5Identifier
+/* Unterminated comment /
