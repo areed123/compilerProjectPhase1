@@ -28,10 +28,9 @@ integer [0]|[1-9][0-9]*
 integerlead0 [0]+[0-9]*
 character \'(.|\\n|\\t|\\|\")\'
 
-string \"([^"]|(\"))*\"
-
-
-untermstring \"[^"]*
+string \"([^"\n]|(\"))*\"
+multlnstring \"([^"]|(\")|(\n))*\"
+untermstring \"[^"]\n
 
 comment \/\*.*\*\/
 multlncomment \/\*(.|\n)*(\n)\*\/
@@ -206,6 +205,11 @@ void {
 		updateCol(); 
 		return processString();
 }
+{multlnstring} {
+      updateCol(); 
+      yyerror = "String spans multiple lines";
+      return ERROR;
+}
 {untermstring}  {
 		updateCol(); 
 		yyerror = "Unterminated string constant"; 
@@ -283,10 +287,6 @@ int processString(){
                     return ERROR;
                 }
         }
-         else if(q=='\n'){
-            yyerror="String spans multiple lines";
-            return ERROR;
-         }
         else{
             yytext[j]=yytext[i];
         }
