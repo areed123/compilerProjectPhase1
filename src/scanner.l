@@ -31,9 +31,7 @@ character \'(.|\\n|\\t|\\|\")\'
 string \"([^"\n]|(\"))*\"
 untermstring \"[^"\n]*\n
 
-comment \/\*.*\*\/
-multlncomment \/\*(.|\n)*(\n)\*\/
-untermcomment  \/\*(.|\n)*[^\*][^\/] 
+commentstart \/\*
 
 identifier [a-zA-Z][a-zA-Z0-9]*
 illidentifier [a-zA-Z][^a-zA-Z0-9]
@@ -210,13 +208,22 @@ void {
 		return ERROR;
 }
 
-{comment}      
-{untermcomment} {
-	updateCol();
-	yyerror="Unterminated Comment";
-	return ERROR;
+{commentstart} {
+   int c;
+   int prev = 0;
+   while (1) {
+      c = input();
+      if (c == EOF) {
+         updateCol();
+         yyerror = "Unterminated comment";
+         return ERROR;
+      }
+      if (c == '*' && prev == '/') {
+         break;
+      }
+      prev = c;
+   }
 }
-{multlncomment}
 
 {newline}       {
 		countLines();
