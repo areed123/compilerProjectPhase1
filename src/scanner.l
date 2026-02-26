@@ -31,7 +31,7 @@ character \'(.|\\n|\\t|\\|\")\'
 string \"([^"\n]|(\"))*\"
 untermstring \"[^"\n]*\n
 
-commentstart \/\*
+commentstart /\*
 
 identifier [a-zA-Z][a-zA-Z0-9]*
 illidentifier [a-zA-Z][^a-zA-Z0-9]
