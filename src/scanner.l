@@ -203,6 +203,7 @@ void {
 		return processString();
 }
 {untermstring}  {
+      countLines();
 		updateCol(); 
 		yyerror = "Unterminated string constant"; 
 		return ERROR;
