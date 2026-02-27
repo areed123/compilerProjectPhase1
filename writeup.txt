@@ -1,11 +1,10 @@
 Aiden Reed
-Vince Otti
+Vincent Otti
 CS 4318.252
 
 Group Contributions
 Aiden: Designed initial regex, wrote updateCol(), countLines(), and processString(). Satisfied the test cases given with project description
-Vince: //TODO
+Vincent: Wrote keyword & operator rules, commentstart rule, wrote test cases, debugged line tracking and comment token registration errors
 
 How We Tested Correctness:
-//TODO: "Provide two examples of how you will test the correctness of your code.
-These examples should be different from the ones provided in this document."
+Created test-inputs/example3.txt to test that scanner recognizes all valid token types. Created test-inputs/example4.txt to test that scanner recognizes all invalid token errors.
