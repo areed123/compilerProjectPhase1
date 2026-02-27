@@ -1,0 +1,11 @@
+Aiden Reed
+Vince Otti
+CS 4318.252
+
+Group Contributions
+Aiden: Designed initial regex, wrote updateCol(), countLines(), and processString(). Satisfied the test cases given with project description
+Vince: //TODO
+
+How We Tested Correctness:
+//TODO: "Provide two examples of how you will test the correctness of your code.
+These examples should be different from the ones provided in this document."
