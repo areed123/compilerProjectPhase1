@@ -77,6 +77,10 @@ void {
    updateCol();
    return OPER_ADD;
  }
+- {
+	updateCol();
+	return OPER_SUB;
+}
 \* {
    updateCol();
    return OPER_MUL;
@@ -214,16 +218,18 @@ void {
    int prev = 0;
    while (1) {
       c = input();
+	  scancol++;
       if (c == EOF || c == 0) {
-         updateCol();
          yyerror = "Unterminated comment";
          return ERROR;
       }
       if (c == '/' && prev == '*') {
-         break;
+         	updateCol();
+			break;
       }
       if (c == '\n') {
-         countLines();
+         scanlineno++;
+		 scancol=1;
       }
       prev = c;
    }
