@@ -243,6 +243,7 @@ void {
 }
 .	{
    yyerror="Illegal token";
+	updateCol();
 	return ILLEGAL_TOK;
 }
 
